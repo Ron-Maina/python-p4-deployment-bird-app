@@ -1,12 +1,14 @@
+# Import your Flask app instance
 from app import app
-from models import db, Bird
 
-db.init_app(app)
+# Import the existing SQLAlchemy instance (use the same name as in your app initialization)
+from models import db,Bird
 
+# Inside the app context, you can use the existing SQLAlchemy instance
 with app.app_context():
-
+    # Your database operations here
     print('Deleting existing birds...')
-    Bird.query.delete()
+    db.session.query(Bird).delete()
 
     print('Creating bird objects...')
     chickadee = Bird(
